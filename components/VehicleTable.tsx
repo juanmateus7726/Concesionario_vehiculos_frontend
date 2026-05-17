@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import { Vehicle, User } from '../types';
 
 interface Props {
@@ -11,25 +13,32 @@ interface Props {
 
 export default function VehicleTable({ vehicles, user, onEdit, onDelete }: Props) {
   const isAdmin = user?.role === 'admin';
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  const handleDelete = (id: number) => {
+    setDeletingId(id);
+    setTimeout(() => {
+      onDelete(id);
+      setDeletingId(null);
+    }, 400);
+  };
 
   return (
     <div className="w-full overflow-x-auto">
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th className="bg-[#C6007E] text-white px-6 py-3 text-left text-sm font-semibold">
+            <th className="bg-[#C6007E] text-white px-8 py-4 text-left text-sm font-semibold">
               Marca
             </th>
-            <th className="bg-[#C6007E] text-white px-6 py-3 text-left text-sm font-semibold">
+            <th className="bg-[#C6007E] text-white px-8 py-4 text-left text-sm font-semibold">
               Sucursal
             </th>
-            <th className="bg-[#C6007E] text-white px-6 py-3 text-left text-sm font-semibold">
+            <th className="bg-[#C6007E] text-white px-8 py-4 text-left text-sm font-semibold">
               Aspirante
             </th>
             {isAdmin && (
-              <th className="bg-[#C6007E] text-white px-6 py-3 text-left text-sm font-semibold">
-                Acciones
-              </th>
+              <th className="bg-[#C6007E] text-white px-8 py-4 text-left text-sm font-semibold" />
             )}
           </tr>
         </thead>
@@ -41,38 +50,32 @@ export default function VehicleTable({ vehicles, user, onEdit, onDelete }: Props
               </td>
             </tr>
           ) : (
-            vehicles.map((vehicle, index) => (
+            vehicles.map((vehicle) => (
               <tr
                 key={vehicle.id}
-                className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                className={`border-b border-[#E280BE] transition-all duration-400 ${
+                  deletingId === vehicle.id
+                    ? 'opacity-0 scale-95 translate-x-10'
+                    : 'opacity-100 scale-100 translate-x-0'
+                }`}
               >
-                <td className="px-6 py-3 text-sm text-gray-700 border-b border-[#E280BE]">
-                  {vehicle.brand}
-                </td>
-                <td className="px-6 py-3 text-sm text-gray-700 border-b border-[#E280BE]">
-                  {vehicle.locality}
-                </td>
-                <td className="px-6 py-3 text-sm text-gray-700 border-b border-[#E280BE]">
-                  {vehicle.applicant}
-                </td>
+                <td className="px-8 py-4 text-sm text-gray-600">{vehicle.brand}</td>
+                <td className="px-8 py-4 text-sm text-gray-600">{vehicle.locality}</td>
+                <td className="px-8 py-4 text-sm text-gray-600">{vehicle.applicant}</td>
                 {isAdmin && (
-                  <td className="px-6 py-3 border-b border-[#E280BE]">
-                    <div className="flex gap-3">
-                      {/* Botón editar */}
+                  <td className="px-8 py-4">
+                    <div className="flex gap-3 items-center">
                       <button
                         onClick={() => onEdit(vehicle)}
-                        className="text-[#40CEE4] hover:opacity-70 transition-all"
-                        title="Editar"
+                        className="hover:opacity-70 transition-all"
                       >
-                        ✏️
+                        <Image src="/assets/Icon_editar1.svg" alt="Editar" width={28} height={28} />
                       </button>
-                      {/* Botón eliminar */}
                       <button
-                        onClick={() => onDelete(vehicle.id)}
-                        className="text-[#C6007E] hover:opacity-70 transition-all"
-                        title="Eliminar"
+                        onClick={() => handleDelete(vehicle.id)}
+                        className="hover:opacity-70 transition-all"
                       >
-                        ➖
+                        <Image src="/assets/Icon_eliminar1.svg" alt="Eliminar" width={28} height={28} />
                       </button>
                     </div>
                   </td>

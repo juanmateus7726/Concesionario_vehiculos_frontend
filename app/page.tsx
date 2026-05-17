@@ -1,65 +1,135 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+
+export default function HomePage() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main className="min-h-screen bg-white relative overflow-hidden flex flex-col px-4">
+
+      {/* Logo */}
+      <div className="absolute top-4 left-6 z-20">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+          src="/assets/Imagologo_motion.svg"
+          alt="Logo"
+          width={60}
+          height={60}
+          className="object-contain w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+      </div>
+
+{/* Animación ola */}
+<div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+  <motion.div
+    animate={{ x: ['120vw', '-120vw'] }}
+    transition={{ duration: 6, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+    className="absolute"
+    style={{ top: '-10%' }}
+  >
+    <svg width="800" height="1200" viewBox="0 0 800 1200" fill="none">
+  <defs>
+    <filter id="shadow" x="-200%" y="-10%" width="500%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="50" result="blur" />
+      <feFlood floodColor="#666" floodOpacity="1" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="shadow" />
+      <feOffset dx="-60" dy="0" in="shadow" result="shadowLeft" />
+      <feMerge>
+        <feMergeNode in="shadowLeft" />
+        <feMergeNode in="shadowLeft" />
+        <feMergeNode in="shadowLeft" />
+        <feMergeNode in="shadowLeft" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <path
+    d="M 600 0 Q 400 600 600 1200"
+    stroke="white"
+    strokeWidth="1.5"
+    fill="none"
+    strokeLinecap="round"
+    filter="url(#shadow)"
+  />
+</svg>
+  </motion.div>
+</div>
+
+      {/* Contenido principal */}
+      <div className="flex-1 flex items-center justify-center mt-16 relative">
+        <motion.div
+          className="relative flex items-center justify-center w-full max-w-5xl"
+          initial={{ x: 200, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        >
+          {/* BIENVENIDO A - detrás de la imagen */}
+          <div className="absolute left-0 right-0 top-[32%] z-0 flex justify-center">
+            <h1
+              className="text-[48px] sm:text-[70px] md:text-[100px] lg:text-[140px] font-bold text-[#00249C] uppercase leading-[1] tracking-tight whitespace-nowrap"
+              style={{ WebkitTextStroke: '3px white', paintOrder: 'stroke fill' }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              BIENVENIDO A
+            </h1>
+          </div>
+
+          {/* Imagen */}
+          <Image
+            src="/assets/Telefono-01.png"
+            alt="App"
+            width={700}
+            height={600}
+            className="object-contain relative z-10 w-[280px] sm:w-[400px] md:w-[550px] lg:w-[700px]"
+            priority
+          />
+
+          {/* MONITORING INNOVATION - encima de la imagen */}
+          <div className="absolute left-0 right-0 top-[45%] z-20 flex justify-center">
+            <h1
+              className="text-[32px] sm:text-[48px] md:text-[70px] lg:text-[95px] font-bold text-[#00249C] uppercase leading-[1] tracking-tight whitespace-nowrap"
+              style={{ WebkitTextStroke: '2px white', paintOrder: 'stroke fill' }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              MONITORING INNOVATION
+            </h1>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Footer links */}
+      <motion.div
+        className="w-full flex flex-wrap justify-center gap-6 sm:gap-16 md:gap-36 pb-6 pt-0 pl-0 md:pl-20 z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1 }}
+      >
+        <a href="https://monitoringinnovation.com/" target="_blank" rel="noopener noreferrer"
+          className="text-[#40CEE4] text-xs sm:text-sm md:text-lg font-semibold uppercase tracking-widest hover:opacity-70 transition-all">
+          MONITORING INNOVATION
+        </a>
+        <a href="https://gpscontrol.co/" target="_blank" rel="noopener noreferrer"
+          className="text-[#40CEE4] text-xs sm:text-sm md:text-lg font-semibold uppercase tracking-widest hover:opacity-70 transition-all">
+          GPS CONTROL
+        </a>
+        <a href="https://github.com/juanmateus7726/Concesionario_vehiculos_frontend" target="_blank" rel="noopener noreferrer"
+          className="text-[#40CEE4] text-xs sm:text-sm md:text-lg font-semibold uppercase tracking-widest hover:opacity-70 transition-all">
+          Link repo front
+        </a>
+        <a href="https://github.com/juanmateus7726/Concesionario_vehiculos_backend" target="_blank" rel="noopener noreferrer"
+          className="text-[#40CEE4] text-xs sm:text-sm md:text-lg font-semibold uppercase tracking-widest hover:opacity-70 transition-all">
+          Link repo back
+        </a>
+      </motion.div>
+
+    </main>
   );
 }
