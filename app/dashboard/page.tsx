@@ -120,66 +120,64 @@ export default function DashboardPage() {
       </AnimatePresence>
 
       {/* Usuario dropdown */}
-<div className="absolute top-4 right-6 z-30">
-  <div className="relative">
-    <button
-      onClick={(e) => { e.stopPropagation(); setShowMenu(!showMenu); }}
-      className="flex items-center gap-2 text-[#00249C] hover:opacity-70 transition-all"
-    >
-      <div className="w-9 h-9 rounded-full bg-[#40CEE4] flex items-center justify-center text-white font-bold text-sm">
-        {user?.username?.charAt(0).toUpperCase()}
-      </div>
-      <span className="text-sm font-semibold">{user?.username}</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </button>
-
-    <AnimatePresence>
-      {showMenu && (
-        <>
-          {/* Capa invisible para cerrar al hacer click fuera */}
-          <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
-          
-          <motion.div
-            className="absolute right-0 mt-2 bg-white rounded-xl shadow-lg py-2 w-44 z-50"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
+      <div className="absolute top-4 right-4 sm:right-6 z-30">
+        <div className="relative">
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowMenu(!showMenu); }}
+            className="flex items-center gap-2 text-[#00249C] hover:opacity-70 transition-all"
           >
-            <div className="px-4 py-2 border-b border-gray-100">
-              <p className="text-xs text-gray-400">Rol</p>
-              <p className="text-sm font-semibold text-[#00249C] capitalize">{user?.role}</p>
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#40CEE4] flex items-center justify-center text-white font-bold text-xs sm:text-sm">
+              {user?.username?.charAt(0).toUpperCase()}
             </div>
-            <button
-              onClick={() => {
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                localStorage.removeItem('user');
-                document.cookie = 'access_token=; path=/; max-age=0';
-                router.push('/login');
-              }}
-              className="w-full text-left px-4 py-2 text-sm text-[#C6007E] hover:bg-[#C6007E]/5 transition-all flex items-center gap-2"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                <polyline points="16 17 21 12 16 7"/>
-                <line x1="21" y1="12" x2="9" y2="12"/>
-              </svg>
-              Cerrar sesión
-            </button>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  </div>
-</div>
+            <span className="hidden sm:block text-sm font-semibold">{user?.username}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
 
-      <main className="flex gap-12 px-6 py-10 flex-1 items-start">
+          <AnimatePresence>
+            {showMenu && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
+                <motion.div
+                  className="absolute right-0 mt-2 bg-white rounded-xl shadow-lg py-2 w-44 z-50"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-xs text-gray-400">Rol</p>
+                    <p className="text-sm font-semibold text-[#00249C] capitalize">{user?.role}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem('access_token');
+                      localStorage.removeItem('refresh_token');
+                      localStorage.removeItem('user');
+                      document.cookie = 'access_token=; path=/; max-age=0';
+                      router.push('/login');
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm text-[#C6007E] hover:bg-[#C6007E]/5 transition-all flex items-center gap-2"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                      <polyline points="16 17 21 12 16 7"/>
+                      <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Cerrar sesión
+                  </button>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <main className="flex flex-col md:flex-row gap-6 md:gap-12 px-4 md:px-6 py-16 md:py-10 flex-1 items-start">
 
         {isAdmin && (
-          <div className="shrink-0 flex flex-col gap-4 bg-white rounded-2xl shadow-md p-6 ml-10" style={{ width: '400px', alignSelf: 'flex-start' }}>
+          <div className="w-full md:w-[400px] md:shrink-0 flex flex-col gap-4 bg-white rounded-2xl shadow-md p-4 md:p-6 md:ml-10" style={{ alignSelf: 'flex-start' }}>
 
             {/* Botón + */}
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => !isOpen && setIsOpen(true)}>
@@ -206,7 +204,7 @@ export default function DashboardPage() {
                   placeholder="Mazda"
                   maxLength={100}
                   disabled={!isOpen}
-                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
+                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-sm md:text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
                 />
               </div>
 
@@ -222,7 +220,7 @@ export default function DashboardPage() {
                   placeholder="Chapinero"
                   maxLength={50}
                   disabled={!isOpen}
-                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
+                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-sm md:text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
                 />
               </div>
 
@@ -238,7 +236,7 @@ export default function DashboardPage() {
                   placeholder="David Sandoval"
                   maxLength={100}
                   disabled={!isOpen}
-                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
+                  className="w-full border border-[#C5C5C5] rounded-full px-5 py-2.5 text-sm md:text-lg text-gray-400 bg-white outline-none focus:border-[#40CEE4] transition-all disabled:opacity-60"
                 />
               </div>
 
@@ -265,13 +263,13 @@ export default function DashboardPage() {
                       <>
                         <button
                           onClick={handleCancel}
-                          className="border border-[#C6007E] text-[#C6007E] rounded-full px-5 py-2 text-lg hover:bg-[#C6007E] hover:text-white transition-all"
+                          className="border border-[#C6007E] text-[#C6007E] rounded-full px-5 py-2 text-sm md:text-lg hover:bg-[#C6007E] hover:text-white transition-all"
                         >
                           Cancelar
                         </button>
                         <button
                           onClick={handleSave}
-                          className="border border-[#40CEE4] text-[#40CEE4] rounded-full px-5 py-2 text-lg hover:bg-[#40CEE4] hover:text-white transition-all"
+                          className="border border-[#40CEE4] text-[#40CEE4] rounded-full px-5 py-2 text-sm md:text-lg hover:bg-[#40CEE4] hover:text-white transition-all"
                         >
                           Crear
                         </button>
@@ -286,7 +284,7 @@ export default function DashboardPage() {
           </div>
         )}
 
-        <div className="flex-1 min-w-0 flex justify-center">
+        <div className="w-full flex-1 min-w-0 overflow-x-auto flex justify-center">
           {loading ? (
             <p className="text-center text-gray-400 py-10">Cargando...</p>
           ) : (
@@ -301,12 +299,13 @@ export default function DashboardPage() {
 
       </main>
 
-      <footer className="w-full flex justify-center py-6">
+      <footer className="w-full flex justify-center py-6" onClick={() => router.push('/')}>
         <Image
           src="/assets/Imagologotipo_motion.svg"
           alt="Motion"
           width={180}
           height={50}
+          className="w-28 sm:w-36 md:w-44"
         />
       </footer>
 

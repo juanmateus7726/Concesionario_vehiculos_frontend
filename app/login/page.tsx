@@ -41,7 +41,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden px-4">
 
       {/* Fondo */}
       <div
@@ -50,51 +50,49 @@ function LoginForm() {
       />
 
       {/* Overlay */}
-<div
-  className="absolute inset-0"
-  style={{
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.95) 100%)',
-  }}
-/>
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.95) 100%)',
+        }}
+      />
 
       {/* Logo top-left */}
-      <div className="absolute top-9 left-14 z-10">
+      <div className="absolute top-4 left-4 sm:top-9 sm:left-14 z-10">
         <Image
           src="/assets/Imagologo_motion.svg"
           alt="Motion"
           width={36}
           height={36}
-          className="object-contain"
-          style={{ width: '55px', height: 'auto' }}
+          className="object-contain w-8 h-8 sm:w-14 sm:h-14"
         />
       </div>
 
       {/* Card */}
       <motion.div
-        className="relative z-10 bg-white rounded-2xl shadow-2xl w-full mx-4 flex flex-col justify-between"
-        style={{ maxWidth: '560px', padding: '63px 40px', minHeight: '750px' }}
+        className="relative z-10 bg-white rounded-2xl shadow-2xl w-full flex flex-col justify-between"
+        style={{ maxWidth: '560px', padding: 'clamp(30px, 5vw, 63px) clamp(20px, 5vw, 40px)', minHeight: 'clamp(500px, 80vh, 750px)' }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
 
         {/* Logo + separador + Manager */}
-        <div className="flex items-center justify-center gap-5 mt-4 mb-10">
+        <div className="flex items-center justify-center gap-3 sm:gap-5 mt-2 sm:mt-4 mb-6 sm:mb-10">
           <Image
             src="/assets/Imagologo_motion.svg"
             alt="Motion Logo"
             width={64}
             height={64}
-            className="object-contain flex-shrink-0"
-            style={{ width: '100px', height: 'auto' }}
+            className="object-contain flex-shrink-0 w-14 h-14 sm:w-24 sm:h-24"
           />
           <div
             className="flex-shrink-0"
-            style={{ width: '1.8px', height: '95px', backgroundColor: '#00249C' }}
+            style={{ width: '1.8px', height: '70px', backgroundColor: '#00249C' }}
           />
           <span
-            className="text-4xl font-bold"
-            style={{ color: '#00249C', letterSpacing: '0.01em', paddingLeft: '15px' }}
+            className="text-2xl sm:text-4xl font-bold"
+            style={{ color: '#00249C', letterSpacing: '0.01em', paddingLeft: '10px' }}
           >
             Manager
           </span>
@@ -114,7 +112,7 @@ function LoginForm() {
           )}
         </AnimatePresence>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
 
           {/* Campo usuario */}
           <div>
@@ -128,7 +126,7 @@ function LoginForm() {
               placeholder="design@monitoringinnovation.com"
               required
               maxLength={100}
-              className="w-full px-4 py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent"
+              className="w-full px-4 py-2 sm:py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent"
             />
           </div>
 
@@ -146,7 +144,7 @@ function LoginForm() {
                 required
                 minLength={6}
                 maxLength={50}
-                className="w-full px-4 py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent pr-10"
+                className="w-full px-4 py-2 sm:py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent pr-10"
               />
               <button
                 type="button"
@@ -168,7 +166,7 @@ function LoginForm() {
           </AnimatePresence>
 
           {/* Botón submit */}
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center pt-1 sm:pt-2">
             <motion.button
               type="submit"
               disabled={loading}
@@ -183,31 +181,31 @@ function LoginForm() {
         </form>
 
         {/* Links */}
-<div className="flex justify-around text-xs mt-4">
-  <a href="/forgot-password" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
-    Olvide <span className="font-bold">Mi</span> contraseña
-  </a>
-  <a href="/register" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
-    Registrarse
-  </a>
-</div>
+        <div className="flex justify-around text-xs mt-3 sm:mt-4">
+          <a href="/forgot-password" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
+            Olvide <span className="font-bold">Mi</span> contraseña
+          </a>
+          <a href="/register" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
+            Registrarse
+          </a>
+        </div>
 
         {/* Iconos inferiores */}
-<div className="mt-4 flex justify-center gap-4">
-  <div className="w-14 h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="12" y1="8" x2="12" y2="12"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
-    </svg>
-  </div>
-  <div className="w-14 h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-      <circle cx="12" cy="7" r="4"/>
-    </svg>
-  </div>
-</div>
+        <div className="mt-3 sm:mt-4 flex justify-center gap-4">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+        </div>
 
       </motion.div>
     </div>

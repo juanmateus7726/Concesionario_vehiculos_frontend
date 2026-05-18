@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend - Vehiculos
 
-## Getting Started
+-Aplicacion web desarrollado con Next.js 14 para gestion de vehiculos de un concesionario.
+Consume las APIs del backend, Implementa autenticacion JWT, control de acceso por roles 
+y animaciones fluidas basadas en el diseno de Figma.
 
-First, run the development server:
 
-```bash
+-Stack Tecnologico
+
+Next.js 14
+TypeScript
+Tailwind CSS
+Framer Motion
+
+
+-Estructura del Proyecto
+
+frontend-vehiculos/
+├── app/
+│   ├── page.tsx                # Home / Landing
+│   ├── login/page.tsx          # Inicio de sesión
+│   ├── register/page.tsx       # Registro de usuario
+│   ├── dashboard/page.tsx      # Panel CRUD de vehículos
+│   ├── forgot-password/page.tsx # Recuperar contraseña
+│   └── reset-password/page.tsx  # Nueva contraseña
+├── components/
+│   └── VehicleTable.tsx        # Tabla de vehículos con animaciones
+├── lib/
+│   ├── api.ts                  # Funciones de login y registro
+│   ├── auth.ts                 # Manejo de tokens y cookies
+│   └── axios.ts                # Instancia Axios con interceptores JWT
+├── types/
+│   └── index.ts                # Tipos TypeScript (Vehicle, User)
+├── middleware.ts               # Protección de rutas Next.js
+└── public/assets/              # Imágenes, logos e iconos SVG
+
+
+-Autenticacion y Seguridad
+
+*Tokens JWT almacenados en localStorage y cookies (para middleware)
+*Interceptor Axios adjunta el token automáticamente en cada petición
+*Si el token expira → limpia sesión y redirige al login con mensaje
+*Middleware Next.js protege rutas: / y /dashboard requieren token
+*Renderizado condicional por rol: Viewer no ve botones de crear/editar/eliminar
+
+
+-Flujo de la alicacion
+
+/login  ->  / (home)    /dashboard
+*Sin sesión → redirige a /login
+*Con sesión en /login → redirige a /
+*Admin → ve formulario CRUD completo
+*Viewer → solo ve la tabla de vehículos
+
+
+-Instalacion y Ejecucion Local
+
+Requisitos
+*Node.js
+*Backend corriendo
+
+Pasos en el despliegue
+
+1. Clonar el repositorio
+git clone https://github.com/juanmateus7726/Concesionario_vehiculos_frontend
+
+2. Entrar a la carpeta
+cd frontend-vehiculos
+
+3. Instalar dependencias
+npm install
+
+4. Crear archivo de variables de entorno
+echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
+
+5. Correr en desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-Caracteristicas implementadas
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Home animado — ola decorativa y textos con animación de entrada
+*Login/Register — validación, show/hide password, mensajes de error
+*Recuperación de contraseña — envío real de correo via Gmail SMTP
+*Dashboard CRUD — crear, editar, eliminar vehículos con animaciones
+*Modal de confirmación — al eliminar vehículos
+*Toast de notificaciones — mensajes de éxito y error
+*Dropdown de usuario — muestra nombre, rol y cierre de sesión
+*Animaciones de tabla — filas con entrada escalonada (Framer Motion)
+*Responsivo — adaptado para móvil, tablet y desktop
