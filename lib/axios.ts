@@ -1,27 +1,32 @@
 import axios from 'axios';
 
-// URL base del backend
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
 });
 
-// Interceptor — adjunta el token JWT automáticamente en cada petición
+// Interceptor de request — adjunta el token JWT en cada petición
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
 });
 
-// Interceptor — si el token expira (401), limpia sesión y redirige al login
+// Interceptor de response — si el token expira limpia sesión y redirige
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user');
+        document.cookie = 'access_token=; path=/; max-age=0';
+        window.location.href = '/login?expired=true';
+      }
     }
     return Promise.reject(error);
   }

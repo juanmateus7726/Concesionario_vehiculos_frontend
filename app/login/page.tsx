@@ -43,19 +43,19 @@ function LoginForm() {
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
 
-      {/* Fondo con imagen de carros */}
+      {/* Fondo */}
       <div
         className="absolute inset-0 bg-cover bg-bottom"
         style={{ backgroundImage: `url('/assets/login-bg.jpeg')` }}
       />
 
-      {/* Overlay gradiente */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(64,206,228,0.4) 0%, rgba(198,0,126,0.3) 100%)',
-        }}
-      />
+      {/* Overlay */}
+<div
+  className="absolute inset-0"
+  style={{
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.95) 100%)',
+  }}
+/>
 
       {/* Logo top-left */}
       <div className="absolute top-9 left-14 z-10">
@@ -69,7 +69,7 @@ function LoginForm() {
         />
       </div>
 
-      {/* Card de login — misma altura y ancho */}
+      {/* Card */}
       <motion.div
         className="relative z-10 bg-white rounded-2xl shadow-2xl w-full mx-4 flex flex-col justify-between"
         style={{ maxWidth: '560px', padding: '63px 40px', minHeight: '750px' }}
@@ -78,7 +78,7 @@ function LoginForm() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
 
-        {/* Logo + separador + Manager — CENTRADO */}
+        {/* Logo + separador + Manager */}
         <div className="flex items-center justify-center gap-5 mt-4 mb-10">
           <Image
             src="/assets/Imagologo_motion.svg"
@@ -93,13 +93,8 @@ function LoginForm() {
             style={{ width: '1.8px', height: '95px', backgroundColor: '#00249C' }}
           />
           <span
-            className="text-4xl font-bold pl-4"
-            style={{
-              fontFamily: 'var(--font-montserrat)',
-              color: '#00249C',
-              letterSpacing: '0.01em',
-              paddingLeft: '15px',
-            }}
+            className="text-4xl font-bold"
+            style={{ color: '#00249C', letterSpacing: '0.01em', paddingLeft: '15px' }}
           >
             Manager
           </span>
@@ -123,28 +118,23 @@ function LoginForm() {
 
           {/* Campo usuario */}
           <div>
-            <label
-              className="block text-xs font-bold tracking-widest uppercase mb-2"
-              style={{ fontFamily: 'var(--font-montserrat)', color: '#00249C' }}
-            >
+            <label className="block text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#00249C' }}>
               Usuario
             </label>
             <input
               type="text"
               value={username}
               onChange={e => setUsername(e.target.value)}
-              placeholder="  design@monitoringinnovation.com"
+              placeholder="design@monitoringinnovation.com"
               required
-              className="w-full px-4 py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-lg focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent"
+              maxLength={100}
+              className="w-full px-4 py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent"
             />
           </div>
 
           {/* Campo contraseña */}
           <div>
-            <label
-              className="block text-xs font-bold tracking-widest uppercase mb-2"
-              style={{ fontFamily: 'var(--font-montserrat)', color: '#00249C' }}
-            >
+            <label className="block text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#00249C' }}>
               Contraseña
             </label>
             <div className="relative">
@@ -152,9 +142,11 @@ function LoginForm() {
                 type={showPass ? 'text' : 'password'}
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder="  ••••••••••••••"
+                placeholder="••••••••••••••"
                 required
-                className="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent pr-10 placeholder-[#40CEE4]"
+                minLength={6}
+                maxLength={50}
+                className="w-full px-4 py-3 text-sm text-[#40CEE4] placeholder-[#40CEE4]/60 border border-gray-200 rounded-full focus:outline-none focus:border-[#40CEE4] transition-colors bg-transparent pr-10"
               />
               <button
                 type="button"
@@ -169,57 +161,54 @@ function LoginForm() {
           {/* Error */}
           <AnimatePresence>
             {error && (
-              <motion.p
-                className="text-[#C6007E] text-xs"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
+              <motion.p className="text-[#C6007E] text-xs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 {error}
               </motion.p>
             )}
           </AnimatePresence>
 
-          {/* Botón */}
+          {/* Botón submit */}
           <div className="flex justify-center pt-2">
             <motion.button
               type="submit"
               disabled={loading}
-              className="px-14 py-2.5 rounded-full border border-[#40CEE4] text-sm text-[#40CEE4] hover:bg-[#40CEE4] hover:text-white transition-all disabled:opacity-60"
+              className="px-4 py-1 rounded-lg border border-[#40CEE4] text-sm text-[#40CEE4] hover:bg-[#40CEE4] hover:text-white transition-all disabled:opacity-60"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
               {loading ? 'Iniciando...' : 'Iniciar sesión'}
             </motion.button>
           </div>
+
         </form>
 
         {/* Links */}
-        <div className="mt-10 flex justify-between text-xs">
-          <a href="#" className="text-[#C6007E] hover:opacity-80 transition-opacity">
-            Olvidé <span className="font-bold">Mi</span> contraseña
-          </a>
-          <a href="#" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
-            Registrarse
-          </a>
-        </div>
+<div className="flex justify-around text-xs mt-4">
+  <a href="/forgot-password" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
+    Olvide <span className="font-bold">Mi</span> contraseña
+  </a>
+  <a href="/register" className="text-[#C6007E] hover:opacity-80 transition-opacity font-semibold">
+    Registrarse
+  </a>
+</div>
 
         {/* Iconos inferiores */}
-        <div className="mt-10 flex justify-center gap-6">
-          <div className="w-14 h-14 rounded-full border-2 border-[#40CEE4] bg-white shadow-sm flex items-center justify-center text-[#40CEE4] cursor-pointer hover:bg-[#40CEE4]/10 transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="8" x2="12" y2="12"/>
-              <line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-          </div>
-          <div className="w-14 h-14 rounded-full border-2 border-[#40CEE4] bg-white shadow-sm flex items-center justify-center text-[#40CEE4] cursor-pointer hover:bg-[#40CEE4]/10 transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-        </div>
+<div className="mt-4 flex justify-center gap-4">
+  <div className="w-14 h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </div>
+  <div className="w-14 h-14 rounded-xl bg-white shadow-md flex items-center justify-center text-[#40CEE4] cursor-pointer hover:shadow-lg transition-all">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+  </div>
+</div>
+
       </motion.div>
     </div>
   )

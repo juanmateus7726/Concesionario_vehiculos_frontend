@@ -19,49 +19,44 @@ export default function HomePage() {
     <main className="min-h-screen bg-white relative overflow-hidden flex flex-col px-4">
 
       {/* Logo */}
-      <div className="absolute top-4 left-6 z-20">
-        <Image
-          src="/assets/Imagologo_motion.svg"
-          alt="Logo"
-          width={60}
-          height={60}
-          className="object-contain w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
-        />
-      </div>
+      {/* Logo — click va al dashboard */}
+<div className="absolute top-4 left-6 z-20 cursor-pointer" onClick={() => router.push('/dashboard')}>
+  <Image
+    src="/assets/Imagologo_motion.svg"
+    alt="Logo"
+    width={60}
+    height={60}
+    className="object-contain w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
+  />
+</div>
 
 {/* Animación ola */}
 <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
   <motion.div
-    animate={{ x: ['120vw', '-120vw'] }}
-    transition={{ duration: 6, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
-    className="absolute"
-    style={{ top: '-10%' }}
+    className="absolute top-0 h-full pointer-events-none"
+    animate={{ x: ['110vw', '-30vw'] }}
+    transition={{ 
+      duration: 5,
+      repeat: Infinity,
+      ease: 'easeInOut',
+      repeatDelay: 3
+    }}
   >
-    <svg width="800" height="1200" viewBox="0 0 800 1200" fill="none">
-  <defs>
-    <filter id="shadow" x="-200%" y="-10%" width="500%" height="120%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="50" result="blur" />
-      <feFlood floodColor="#666" floodOpacity="1" result="color" />
-      <feComposite in="color" in2="blur" operator="in" result="shadow" />
-      <feOffset dx="-60" dy="0" in="shadow" result="shadowLeft" />
-      <feMerge>
-        <feMergeNode in="shadowLeft" />
-        <feMergeNode in="shadowLeft" />
-        <feMergeNode in="shadowLeft" />
-        <feMergeNode in="shadowLeft" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
-  <path
-    d="M 600 0 Q 400 600 600 1200"
-    stroke="white"
-    strokeWidth="1.5"
-    fill="none"
-    strokeLinecap="round"
-    filter="url(#shadow)"
-  />
-</svg>
+    <svg height="100vh" width="400px" viewBox="0 0 400 800" preserveAspectRatio="none">
+      <path
+        d="M 350 0 Q 0 400 350 800"
+        fill="none"
+        stroke="rgba(180,180,180,0.3)"
+        strokeWidth="40"
+        strokeLinecap="round"
+        filter="url(#blur)"
+      />
+      <defs>
+        <filter id="blur">
+          <feGaussianBlur stdDeviation="8" />
+        </filter>
+      </defs>
+    </svg>
   </motion.div>
 </div>
 
@@ -74,10 +69,10 @@ export default function HomePage() {
           transition={{ duration: 1.2, ease: 'easeOut' }}
         >
           {/* BIENVENIDO A - detrás de la imagen */}
-          <div className="absolute left-0 right-0 top-[32%] z-0 flex justify-center">
+          <div className="absolute left-0 right-0 top-[32%] z-0 flex justify-center" style={{ paddingRight: '60px' }}>
             <h1
               className="text-[48px] sm:text-[70px] md:text-[100px] lg:text-[140px] font-bold text-[#00249C] uppercase leading-[1] tracking-tight whitespace-nowrap"
-              style={{ WebkitTextStroke: '3px white', paintOrder: 'stroke fill' }}
+              style={{ WebkitTextStroke: '5px white', paintOrder: 'stroke fill' }}
             >
               BIENVENIDO A
             </h1>
@@ -97,7 +92,7 @@ export default function HomePage() {
           <div className="absolute left-0 right-0 top-[45%] z-20 flex justify-center">
             <h1
               className="text-[32px] sm:text-[48px] md:text-[70px] lg:text-[95px] font-bold text-[#00249C] uppercase leading-[1] tracking-tight whitespace-nowrap"
-              style={{ WebkitTextStroke: '2px white', paintOrder: 'stroke fill' }}
+              style={{ WebkitTextStroke: '5px white', paintOrder: 'stroke fill' }}
             >
               MONITORING INNOVATION
             </h1>
