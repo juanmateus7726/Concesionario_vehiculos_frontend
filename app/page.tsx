@@ -35,10 +35,10 @@ export default function HomePage() {
     className="absolute inset-0 pointer-events-none"
     animate={{ x: ['110vw', '-30vw'] }}
     transition={{
-      duration: 2,
+      duration: 20,
       repeat: Infinity,
       ease: 'easeInOut',
-      repeatDelay: 3
+      repeatDelay: 2
     }}
   >
     <svg
