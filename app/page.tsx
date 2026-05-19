@@ -30,34 +30,38 @@ export default function HomePage() {
       </div>
 
       {/* Animación ola */}
-      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-        <motion.div
-          className="absolute top-0 h-full pointer-events-none"
-          animate={{ x: ['110vw', '-30vw'] }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            repeatDelay: 3
-          }}
-        >
-          <svg height="100vh" width="400px" viewBox="0 0 400 800" preserveAspectRatio="none">
-            <path
-              d="M 350 0 Q 0 400 350 800"
-              fill="none"
-              stroke="rgba(180,180,180,0.3)"
-              strokeWidth="40"
-              strokeLinecap="round"
-              filter="url(#blur)"
-            />
-            <defs>
-              <filter id="blur">
-                <feGaussianBlur stdDeviation="8" />
-              </filter>
-            </defs>
-          </svg>
-        </motion.div>
-      </div>
+<div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+  <motion.div
+    className="absolute inset-0 pointer-events-none"
+    animate={{ x: ['110vw', '-30vw'] }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      ease: 'easeInOut',
+      repeatDelay: 3
+    }}
+  >
+    <svg
+      style={{ height: '100vh', width: '100px' }}
+      viewBox="0 0 400 800"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <filter id="blur">
+          <feGaussianBlur stdDeviation="8" />
+        </filter>
+      </defs>
+      <path
+        d="M 350 0 Q 0 400 350 800"
+        fill="none"
+        stroke="rgba(180,180,180,0.3)"
+        strokeWidth="40"
+        strokeLinecap="round"
+        filter="url(#blur)"
+      />
+    </svg>
+  </motion.div>
+</div>
 
       {/* Contenido principal */}
       <div className="flex-1 flex items-center justify-center mt-8 sm:mt-16 relative">
